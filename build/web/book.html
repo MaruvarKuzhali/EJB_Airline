@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Form</title>
+        <style>
+            div {
+                width:50%;
+               
+  border-radius: 5px;
+  background-color: #ffff;
+  padding: 20px;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+body{
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2044837-jpeg.jpg");
+}
+        </style>
+        <script type="text/javascript">
+         function generateCaptcha()
+         {
+             var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+             var i;
+             for (i=0;i<4;i++){
+               var a = alpha[Math.floor(Math.random() * alpha.length)];
+               var b = alpha[Math.floor(Math.random() * alpha.length)];
+               var c = alpha[Math.floor(Math.random() * alpha.length)];
+               var d = alpha[Math.floor(Math.random() * alpha.length)];
+              }
+            var code = a + '' + b + '' + '' + c + '' + d;
+            document.getElementById("mainCaptcha").value = code
+          }
+          function CheckValidCaptcha(){
+              var string1 = removeSpaces(document.getElementById('mainCaptcha').value);
+              var string2 = removeSpaces(document.getElementById('txtInput').value);
+              if (string1 == string2){
+         document.getElementById('success').innerHTML = "Form is validated Successfully";
+         //alert("Form is validated Successfully");
+                return true;
+              }
+              else{       
+         document.getElementById('error').innerHTML = "Please enter a valid captcha."; 
+         alert("Please enter a valid captcha.");
+                return false;
+         
+              }
+          }
+          function removeSpaces(string){
+            return string.split(' ').join('');
+          }
+      </script>    
+    </head>
+    <body onload="generateCaptcha();">
+        <br/><br/><br/>
+    <center>
+        <div>
+        <h1>Reservation Form</h1>
+        <form action="BookServlet" onsubmit="return CheckValidCaptcha()" method="get">  
+<table>  
+<tr><td>Flight Name:</td><td><input type="text" name="name"/></td></tr>  
+<tr><td>Flight ID:</td><td><input type="text" name="id"/></td></tr>  
+<tr><td>Source:</td><td><input type="text" name="source"/></td></tr>
+<tr><td>Destination:</td><td><input type="text" name="destination"/></td></tr>
+<tr><td>Number of Seats:</td><td><input type="text" name="seats"/></td></tr>
+<tr><td>Class:</td><td>  
+<select name="classs" style="width:150px">  
+    <option value="A">Economy</option>  
+    <option value="B">Business</option>  
+    <option value="V.I.P">V.I.P</option>    
+</select>  
+</td></tr> 
+<tr>
+               <td>
+                   <input type="text" id="mainCaptcha" readonly="readonly" style="background-color: aquamarine"/> 
+                  <input type="button" id="refresh" value="Refresh" onclick="generateCaptcha();"/>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="text" id="txtInput"/>    
+               </td>
+            </tr>
+            <tr>
+               <td><span id="error" style="color:red"></span></td>
+            </tr>
+            <tr>
+               <td><span id="success" style="color:green"></span></td>
+            </tr>
+<tr><td colspan="2"><input type="submit" value="BOOK TICKETS"/></td></tr>  
+</table>  
+</form>  
+        </div>
+    </center>
+    </body>
+</html>
